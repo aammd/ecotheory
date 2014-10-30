@@ -1,0 +1,15 @@
+Package: ecotheory
+Type: Package
+Title: Simulations of ecologial models from Vellend 201X
+Version: 0.1
+Date: 2014-10-29
+Authors@R: c( person("Andrew",
+    "MacDonald", email="aammacdonald@gmail.com", role=c("aut", "cre")),
+    person("Mark", "Vellend", email = "mark.vellend@usherbrooke.ca", role=c("aut", "cre")))
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: This package contains vignettes which reproduce all figures from
+    Vellend 201X
+License: CC-BY
+Suggests:
+    knitr
+VignetteBuilder: knitr
