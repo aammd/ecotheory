@@ -1,58 +1,70 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Box 4.1"
+author: "Andrew MacDonald, after Vellend 201X"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Box4_1}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+## Simulating neutral dynamics in a local, two species community
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+```{r}
+## set seed, making our example reproducible
+set.seed(2)
 
-## Vignette Info
+## specify initial community and time instructions
+J <- 50
+init.1 <- J / 2
+COM <- vector(length = J)
 
-Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+COM[1:init.1] <- 1
+COM[(init.1 + 1):J] <- 2
 
-## Styles
+num.years <- 50
+year <- 2
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+## Set up vector for data collection
+freq.1.vec <- vector(length = num.years)
+freq.1.vec[1] <- init.1 / J
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+## run simulation
+for(i in 1:(J * (num.years - 1))) {
+  
+  freq.1 <- sum(COM == 1)
+  Pr.1  <- freq.1 / J
+  COM[ceiling(J * runif(1))] <- sample(c(1, 2), 1, 
+                                       prob = c(Pr.1, 1 - Pr.1))
+  
+  if (i %% J == 0){
+    freq.1.vec[year] <- sum(COM == 1) / J
+    year <- year + 1
+  }
+}
 
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+plot(1:num.years, freq.1.vec, type = "l", 
+     xlab = "Time", 
+     ylab = "Frequency of species 1", 
+     ylim = c(0, 1))
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+### Detailed description of the code:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+1. Define the local commmunity size, `J` . `J` is defined as an object, and ` <- ` places the number 50 in this object:
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r}
+## specify initial community and time instructions
+J <- 50
+init.1 <- J / 2
+COM <- vector(length = J)
 ```
 
-Also a quote using `>`:
+2. Define the initial population size of species 1, `init.1` . By default, the initial population size of species 2 will be `J – init.1`:
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r}
+COM[1:init.1] <- 1
+COM[(init.1 + 1):J] <- 2
+```
+
