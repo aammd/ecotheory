@@ -9,7 +9,7 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Simulating neutral dynamics in a local, two species community
+## Simulating neutral dynamics in a local, two species community.
 
 ```{r}
 ## set seed, making our example reproducible
