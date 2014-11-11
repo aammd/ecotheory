@@ -13,19 +13,19 @@ year <- 2
 COM.out <- matrix(nrow = (num.years/100+1), ncol = J); COM.out[1,] <- COM 
 
 for (i in 1:(J*(num.years))) {
-	dead.indiv <- ceiling(J*runif(1))
-
-if (runif(1) < nu) {
-	COM[dead.indiv] <- sp+1
-	sp <- sp + 1
-} else {
-	COM[dead.indiv] <- COM[ceiling(J*runif(1))]
-}
-
-if (i %% (J*100) == 0) {
-	COM.out[year,] <- COM
-	year <- year+ 1 	
-} } 
+  dead.indiv <- ceiling(J*runif(1))
+  
+  if (runif(1) < nu) {
+    COM[dead.indiv] <- sp+1
+    sp <- sp + 1
+  } else {
+    COM[dead.indiv] <- COM[ceiling(J*runif(1))]
+  }
+  
+  if (i %% (J*100) == 0) {
+    COM.out[year,] <- COM
+    year <- year+ 1 	
+  } } 
 
 ################################
 # a bunch of calculations to allow plotting relative abundance distributions
@@ -34,18 +34,18 @@ if (i %% (J*100) == 0) {
 SR.out <- vector(length = dim(COM.out)[1])
 
 for (t in 1:dim(COM.out)[1]) {
-	COM.hist <- hist(COM.out[t,],c(1:max(COM.out[t,])),plot=FALSE)
-	abund.vec <- COM.hist$counts[COM.hist$counts>0]
-	SR.out[t] <- sum(abund.vec>0)
+  COM.hist <- hist(COM.out[t,],c(1:max(COM.out[t,])),plot=FALSE)
+  abund.vec <- COM.hist$counts[COM.hist$counts>0]
+  SR.out[t] <- sum(abund.vec>0)
 }
 
 abund.out <- matrix(nrow = (num.years/100+1), ncol = max(SR.out))
 abund.out[] <- 0
 
 for (t in 1:dim(COM.out)[1]) {
-	COM.hist <- hist(COM.out[t,],c(1:max(COM.out[t,])),plot=FALSE)
-	abund.vec <- COM.hist$counts[COM.hist$counts>0]
-	abund.out[t,1:SR.out[t]] <- abund.vec
+  COM.hist <- hist(COM.out[t,],c(1:max(COM.out[t,])),plot=FALSE)
+  abund.vec <- COM.hist$counts[COM.hist$counts>0]
+  abund.out[t,1:SR.out[t]] <- abund.vec
 }
 
 abund.out <- abund.out/J
@@ -56,7 +56,7 @@ final.rad <- sort(abund.out[(num.years/100+1),1:SR.out[(num.years/100+1)]],decre
 write.csv(final.rad, file = "c:/temp/RAD1.csv")
 
 plot(log(final.rad),type="l",
-xlab="Species rank order", ylab="log(Relative abundance)")
+     xlab="Species rank order", ylab="log(Relative abundance)")
 
 # some code to overlay results from previous time steps (should look similar if simulation has run long enough)
 lines(log(sort(abund.out[(num.years/100+1)-1,1:SR.out[(num.years/100+1)-1]],decreasing=TRUE)),type="l",col="red")
