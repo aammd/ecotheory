@@ -109,6 +109,8 @@ for(i in 1:(J * (num.years - 1))) {
   if (i %% J == 0){
     freq.1.vec[year] <- sum(COM == 1) / J
     year <- year + 1
+    }
+    }
 ```
 
 10. Plot the results. `1:50` is the data for the x-axis and `freq.1.vec` the data for the y-axis. `type=”l”` specifies a line graph, `xlab` and `ylab` the axis labels, and `ylim` specifies limits on the y-axis values.
