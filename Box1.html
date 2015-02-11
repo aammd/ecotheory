@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Andrew MacDonald, after Vellend 201X" />
+
+<meta name="date" content="2015-02-10" />
+
+<title>Box 4.1</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%7D%0Apre%20%7B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Box 4.1</h1>
+<h4 class="author"><em>Andrew MacDonald, after Vellend 201X</em></h4>
+<h4 class="date"><em>2015-02-10</em></h4>
+</div>
+
+
+<div id="r-code-for-simulating-neutral-dynamics-in-a-local-two-species-community." class="section level2">
+<h2>R code for simulating neutral dynamics in a local, two species community.</h2>
+<pre class="sourceCode r"><code class="sourceCode r">## set seed, making our example reproducible
+<span class="kw">set.seed</span>(<span class="dv">2</span>)
+
+## specify initial community and time instructions
+J &lt;-<span class="st"> </span><span class="dv">50</span>
+init<span class="fl">.1</span> &lt;-<span class="st"> </span>J /<span class="st"> </span><span class="dv">2</span>
+COM &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> J)
+
+COM[<span class="dv">1</span>:init<span class="fl">.1</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+COM[(init<span class="fl">.1</span> +<span class="st"> </span><span class="dv">1</span>):J] &lt;-<span class="st"> </span><span class="dv">2</span>
+
+num.years &lt;-<span class="st"> </span><span class="dv">50</span>
+year &lt;-<span class="st"> </span><span class="dv">2</span>
+
+## Set up vector for data collection
+freq<span class="fl">.1</span>.vec &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> num.years)
+freq<span class="fl">.1</span>.vec[<span class="dv">1</span>] &lt;-<span class="st"> </span>init<span class="fl">.1</span> /<span class="st"> </span>J
+
+## run simulation
+for(i in <span class="dv">1</span>:(J *<span class="st"> </span>(num.years -<span class="st"> </span><span class="dv">1</span>))) {
+  
+  freq<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(COM ==<span class="st"> </span><span class="dv">1</span>) /<span class="st"> </span>J
+  Pr<span class="fl">.1</span>  &lt;-<span class="st"> </span>freq<span class="fl">.1</span>
+  COM[<span class="kw">ceiling</span>(J *<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>))] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">c</span>(Pr<span class="fl">.1</span>, <span class="dv">1</span> -<span class="st"> </span>Pr<span class="fl">.1</span>))
+  
+  if (i %%<span class="st"> </span>J ==<span class="st"> </span><span class="dv">0</span>){
+    freq<span class="fl">.1</span>.vec[year] &lt;-<span class="st"> </span><span class="kw">sum</span>(COM ==<span class="st"> </span><span class="dv">1</span>) /<span class="st"> </span>J
+    year &lt;-<span class="st"> </span>year +<span class="st"> </span><span class="dv">1</span>
+  }
+}
+
+<span class="co"># graph the results</span>
+<span class="kw">plot</span>(<span class="dv">1</span>:num.years, freq<span class="fl">.1</span>.vec, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, 
+     <span class="dt">xlab =</span> <span class="st">&quot;Time&quot;</span>, 
+     <span class="dt">ylab =</span> <span class="st">&quot;Frequency of species 1&quot;</span>, 
+     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</code></pre>
+<p><img src="data:image/png;base64,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" title alt style="display: block; margin: auto;" /></p>
+<div id="description-of-the-code.-these-are-detailed-explanations-suitable-for-an-r-beginner" class="section level3">
+<h3>Description of the code. These are detailed explanations, suitable for an R beginner:</h3>
+<ol style="list-style-type: decimal">
+<li>Define the local commmunity size, <code>J</code> . <code>J</code> is defined as an object, and <code>&lt;-</code> places the number 50 in this object. Define also the initial population size of species 1, <code>init.1</code>. By default, the initial population size of species 2 will be <code>J – init.1</code>.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">J &lt;-<span class="st"> </span><span class="dv">50</span>
+init<span class="fl">.1</span> &lt;-<span class="st"> </span>J /<span class="st"> </span><span class="dv">2</span></code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Create an empty vector of length <code>J</code> to represent the community, and call it <code>COM</code>. Set the initial population sizes of species 1 and 2 by making elements 1 through <code>init.1</code> of <code>COM</code> equal to 1, and the rest equal to 2.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">COM &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> J)
+COM[<span class="dv">1</span>:init<span class="fl">.1</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
+COM[(init<span class="fl">.1</span> +<span class="st"> </span><span class="dv">1</span>):J] &lt;-<span class="st"> </span><span class="dv">2</span></code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Set the number of years over which to run the simulation and define the first year to be simulated as year 2 (the initial specified community will be year 1). If we want to record output each year, as opposed to after each individual birth-death event, we need this to keep track of years in the loop.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">num.years &lt;-<span class="st"> </span><span class="dv">50</span>
+year &lt;-<span class="st"> </span><span class="dv">2</span></code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Create an empty vector to hold the output. We only need to keep track of the frequency of species 1, so we call this vector <code>freq.1.vec</code> (the frequency of species 2 is 1 – the frequency of species 1). Record the initial frequency of species 1 in the first element of <code>freq.1.vec</code>.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">freq<span class="fl">.1</span>.vec &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> num.years)
+freq<span class="fl">.1</span>.vec[<span class="dv">1</span>] &lt;-<span class="st"> </span>init<span class="fl">.1</span> /<span class="st"> </span>J</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Initiate the simulation. Since each year involves <code>J</code> birth-death events, we need to go through the loop (i.e., repeat the birth-death cycle) <code>J*num.years</code> times in order to simulate the specified number of years. The variable <code>i</code> keeps track of how many times we’ve gone through the loop: the first time through the loop, <code>i = 1</code>; the second time, <code>i = 2</code>, and so on.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">for(i in <span class="dv">1</span>:(J *<span class="st"> </span>(num.years -<span class="st"> </span><span class="dv">1</span>))) {</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>In the code above, we calculate the current frequency of species 1, <code>freq.1</code>. <code>COM == 1</code> creates a vector with a “TRUE” (read quantitatively as 1) for any element equal to 1, and a “FALSE” (quantitatively zero) otherwise (in this case when it is a 2). So, taking the sum of <code>COM == 1</code> gives us the current population size of species 1, and dividing by <code>J</code> gives the frequency. <code>Pr.1</code> is the probability that an individual of species 1 is chosen to reproduce; since this model is neutral, it is equal to <code>freq.1</code>.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">  freq<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">sum</span>(COM ==<span class="st"> </span><span class="dv">1</span>) /<span class="st"> </span>J
+  Pr<span class="fl">.1</span>  &lt;-<span class="st"> </span>freq<span class="fl">.1</span></code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Select an individual to die and replace it with an individual of the species chosen to reproduce. <code>runif(1)</code> draws one random number from a uniform distribution between 0 and 1, so <code>J*runif(1)</code> generates a random number between 0 and J. But we need an integer to select an individual from the community, and the <code>ceiling</code> function rounds up our random number to provide a random integer between 1 and <code>J</code>. This is the individual that will die. On the right hand side, we determine the species identity of the reproducing individual based on <code>Pr.1</code>. <code>c(1,2)</code> concatenates the numbers 1 and 2 together in a vector, and we sample 1 number from this vector based on the probabilities <code>Pr.1</code> for species 1 and <code>1 – Pr.1</code> for species 2. Thus, we chose a 1 or a 2 to replace the dead individual.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">  COM[<span class="kw">ceiling</span>(J *<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>))] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">c</span>(Pr<span class="fl">.1</span>, <span class="dv">1</span> -<span class="st"> </span>Pr<span class="fl">.1</span>))</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>After each sequence of <code>J</code> deaths, record data. <code>i %% J</code> returns the remainder of <code>i</code> divided by <code>J</code>, and each time that <code>J</code> deaths have occurred this will be equal to zero, so this is an efficient way to tell R to “stop” the program, record the frequency of species 1, and increment the year tracker by 1. The two <code>}</code> symbols after the snippet of code below terminate the <code>if</code> loop and the <code>for</code> loop.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">  if (i %%<span class="st"> </span>J ==<span class="st"> </span><span class="dv">0</span>){
+    freq<span class="fl">.1</span>.vec[year] &lt;-<span class="st"> </span><span class="kw">sum</span>(COM ==<span class="st"> </span><span class="dv">1</span>) /<span class="st"> </span>J
+    year &lt;-<span class="st"> </span>year +<span class="st"> </span><span class="dv">1</span>
+    }
+    <span class="er">}</span></code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Plot the results. <code>1:50</code> is the data for the x-axis and <code>freq.1.vec</code> the data for the y-axis. <code>type=”l”</code> specifies a line graph, <code>xlab</code> and <code>ylab</code> the axis labels, and <code>ylim</code> specifies limits on the y-axis values.</li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span>:num.years, freq<span class="fl">.1</span>.vec, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, 
+     <span class="dt">xlab =</span> <span class="st">&quot;Time&quot;</span>, 
+     <span class="dt">ylab =</span> <span class="st">&quot;Frequency of species 1&quot;</span>, 
+     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</code></pre>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
