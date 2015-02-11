@@ -12,9 +12,6 @@ vignette: >
 ## R code for simulating neutral dynamics in a local, two species community.  (Note that annotations are done slightly differently here than in the book)
 
 ```{r, fig.align='center'}
-## set seed, making our example reproducible
-set.seed(2)
-
 ## specify initial community and time instructions
 J <- 50
 init.1 <- J / 2
