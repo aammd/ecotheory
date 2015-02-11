@@ -1,3 +1,4 @@
+# Online Box 2
 # R code to produce Figures 4.1, 4.2, 4.3 and 4.6
 # Dynamics of 2 species under constant and/or frequency-dependent selection
 # Note that some parameters are outside the simulation loop; others are inside (defined anew for each simulation)
@@ -12,7 +13,7 @@ num.sims <- 20
 num.years <- 50
 freq.1.mat <- matrix(nrow = num.sims, ncol = num.years)
 
-## start a loop for each of j independent simulations
+## start a loop for each of num.sims independent simulations
 for (j in 1:num.sims) {
   
   ## specify parameters and initial conditions
