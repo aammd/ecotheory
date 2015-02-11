@@ -1,5 +1,8 @@
-# Code for frequency-dependent selection in multiple independent communities
-# Some parameters come outside first simulation loop; others are inside
+# R code to produce Figures 4.1, 4.2, 4.3 and 4.6
+# Dynamics of 2 species under constand and/or frequency-dependent selection
+# Note that some parameters come outside first simulation loop; others are inside
+# For Fig. 1: num.sims = 20, num.years = 50, fit.ratio.avg = 1, freq.dep = 0, init.1 = 0.5*J, J varies among panels
+
 
 num.sims <- 20 # number of independent simulations to run
 num.years <- 50
@@ -8,14 +11,14 @@ freq.1.mat <- matrix(nrow = num.sims, ncol = num.years)
 for (j in 1:num.sims) {
   
   J <- 100
-  init.1 <- 0.8*J
+  init.1 <- 0.5*J
   COM <- vector(length = J)
   COM[1:init.1] <- 1; COM[(init.1+1):J] <- 2
   
   year <- 2
   
   fit.ratio.avg <- 1
-  freq.dep <- 0.4
+  freq.dep <- 0
   
   freq.1.mat[j,1] <- sum(COM==1)/J
   

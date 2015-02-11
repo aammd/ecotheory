@@ -1,5 +1,3 @@
-num.sims <- 20 # number of independent simulations to run
-
 J <- 100
 init.1 <- J/2
 COM <- vector(length = J)

@@ -9,7 +9,7 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code for simulating neutral dynamics in a local, two species community.
+## R code for simulating neutral dynamics in a local, two species community.  (Note that annotations are done slightly differently here than in the book)
 
 ```{r, fig.align='center'}
 ## set seed, making our example reproducible
@@ -90,14 +90,14 @@ loop, `i = 1`; the second time, `i = 2`, and so on.
 for(i in 1:(J * (num.years - 1))) {
 ```
 
-6. In the code above, we calculate the current frequency of species 1, `freq.1`. `COM == 1` creates a vector with a “TRUE” (read quantitatively as 1) for any element equal to 1, and a “FALSE” (quantitatively zero) otherwise (in this case when it is a 2). So, taking the sum of `COM == 1` gives us the current population size of species 1, and dividing by `J` gives the frequency.  `Pr.1` is the probability that an individual of species 1 is chosen to reproduce; since this model is neutral, it is equal to `freq.1`.
+6. Calculate the current frequency of species 1, `freq.1`. `COM == 1` creates a vector with a “TRUE” (read quantitatively as 1) for any element equal to 1, and a “FALSE” (quantitatively zero) otherwise (in this case when it is a 2). So, taking the sum of `COM == 1` gives us the current population size of species 1, and dividing by `J` gives the frequency.  `Pr.1` is the probability that an individual of species 1 is chosen to reproduce; since this model is neutral, it is equal to `freq.1`.
 
 ```r
   freq.1 <- sum(COM == 1) / J
   Pr.1  <- freq.1
 ```
 
-7. Select an individual to die and replace it with an individual of the species chosen to reproduce. `runif(1)` draws one random number from a uniform distribution between 0 and 1, so `J*runif(1)` generates a random number between 0 and J. But we need an integer to select an individual from the community, and the `ceiling` function rounds up our random number to provide a random integer between 1 and `J`. This is the individual that will die. On the right hand side, we determine the species identity of the reproducing individual based on `Pr.1`. `c(1,2)` concatenates the numbers 1 and 2 together in a vector, and we sample 1 number from this vector based on the probabilities `Pr.1` for species 1 and `1 – Pr.1` for species 2. Thus, we chose a 1 or a 2 to replace the dead individual.
+7. Select an individual to die and replace it with an individual of the species chosen to reproduce. `runif(1)`  draws one random number from a uniform distribution between 0 and 1, so `J*runif(1)` generates a random number between 0 and J. But we need an integer to select an individual from the community, and the `ceiling` function rounds up our random number to provide a random integer between 1 and `J`. This is the individual that will die. On the right hand side, we determine the species identity of the reproducing individual based on `Pr.1`. `c(1,2)` concatenates the numbers 1 and 2 together in a vector, and we sample 1 number from this vector based on the probabilities `Pr.1` for species 1 and `1 – Pr.1` for species 2. Thus, we chose a 1 or a 2 to replace the dead individual.
 
 ```r
   COM[ceiling(J * runif(1))] <- sample(c(1, 2), 1, prob = c(Pr.1, 1 - Pr.1))
@@ -113,7 +113,7 @@ for(i in 1:(J * (num.years - 1))) {
     }
 ```
 
-10. Plot the results. `1:50` is the data for the x-axis and `freq.1.vec` the data for the y-axis. `type=”l”` specifies a line graph, `xlab` and `ylab` the axis labels, and `ylim` specifies limits on the y-axis values.
+10. Plot the results. `1:num.years` is the data for the x-axis and `freq.1.vec` the data for the y-axis. `type=”l”` specifies a line graph, `xlab` and `ylab` the axis labels, and `ylim` specifies limits on the y-axis values.
 
 ```r
 plot(1:num.years, freq.1.vec, type = "l", 
