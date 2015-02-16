@@ -1,5 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.originalR\*.R$
+^\.originalR\*$
 R/vighelper.R
 ^\.travis\.yml$
