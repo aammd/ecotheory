@@ -19,8 +19,8 @@ Note 2: More than half the code is post-simulation calculations in order to gene
 
 ```{r, fig.align='center'}
 ## specify parameters, initial conditions, and output vector
-num.years <- 10000 
-J <- 10000 
+num.years <- 100
+J <- 100 
 sp <- 1 # a counter to keep track of added species
 COM <- vector(length = J); COM[] <- sp 
 
@@ -82,7 +82,7 @@ final.rad <- sort(abund.out[(num.years/100+1),1:SR.out[(num.years/100+1)]],decre
 ## Write the final relative abundance distribution to a file for use in Online Box 8 (island biogeography model)
 ## you will need to create/set the directory on your own
 ## data for different speciation rates need to be saved separately and combined later to produce Fig. 4.11
-write.csv(final.rad, file = "c:/temp/RAD1.csv")
+#write.csv(final.rad, file = "c:/temp/RAD1.csv")
 
 ## graph the results
 plot(log(final.rad),type="l",
