@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^\.originalR\*.R$
 R/vighelper.R
+^\.travis\.yml$
