@@ -15,7 +15,7 @@ Code produces one curve in Fig. 4.12
 Need to alter the input csv file and m to produce the others
 
 
-```{r, fig.align='center'}
+```{r, fig.align='center', eval = FALSE}
 ## Import data on metacommunity relative abundance distribution
 ## produced by Online Box 7
 metacom.data <- read.csv("c:/temp/RAD1.csv", header = TRUE)
