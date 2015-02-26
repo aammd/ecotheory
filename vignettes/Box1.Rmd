@@ -1,6 +1,6 @@
 ---
-title: "Box 4.1"
-author: "Andrew MacDonald, after Vellend 201X"
+title: "R code accompanying Vellend (201X), 'The Theory of Ecological Communities' (Princeton University Press)"
+author: "Andrew MacDonald & Mark Vellend"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,7 +9,12 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code for simulating neutral dynamics in a local, two species community.  (Note that annotations are done slightly differently here than in the book)
+## Online Box 1: R code for simulating neutral dynamics in a local, two species community.  
+
+**The code here is exactly as in Box 4.1 in the book, but with annotations presented in a slightly different format.**  
+
+This code runs just one simulation at a time.  Online Box 2 presents code for running multiple simulations of this neutral model, as well as models with selection.
+
 
 ```{r, fig.align='center'}
 ## specify initial community and time instructions

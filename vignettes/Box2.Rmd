@@ -1,6 +1,6 @@
 ---
-title: "Online Box "
-author: "Andrew MacDonald, after Vellend 201X"
+title: "R code accompanying Vellend (201X), 'The Theory of Ecological Communities' (Princeton University Press)"
+author: "Andrew MacDonald & Mark Vellend"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,14 +9,15 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code to produce Figures 4.1, 4.2, 4.3 and 4.6
+## Online Box 2: R code for simulating dynamics with or without constant and frequency-dependent selection in local, two species communities: Figures 4.1, 4.2, 4.3 and 4.6 in the book.
 
-Dynamics of 2 species under constant and/or frequency-dependent selection. Note that some parameters are outside the simulation loop; others are inside (defined anew for each simulation)
+**For Fig. 4.1 (neutral model)**: `num.sims` = 20, `num.years` = 50, `fit.ratio.avg` = 1, `freq.dep` = 0, `init.1` = 0.5*`J`, `J` varies among panels
 
-For Fig. 4.1 (neutral model): num.sims = 20, num.years = 50, fit.ratio.avg = 1, freq.dep = 0, init.1 = 0.5*J, J varies among panels
-For Fig. 4.2 (constant selection): as for Fig. 4.1 except fit.ratio.avg = 1.1
-For Fig. 4.3 (negative frequency-dependent selection): as for Fig. 4.1 except fit.ratio.avg, freq.dep and J vary among panels
-For Fig. 4.6 (positive frequency-dependent selection): as for Fig. 4.1 except freq.dep = 0.4, J = 100 and init.1 varies among panels
+**For Fig. 4.2 (constant selection)**: as for Fig. 4.1 except `fit.ratio.avg` = 1.1
+
+**For Fig. 4.3 (negative frequency-dependent selection)**: as for Fig. 4.1 except `fit.ratio.avg`, `freq.dep` and `J` vary among panels
+
+**For Fig. 4.6 (positive frequency-dependent selection)**: as for Fig. 4.1 except `freq.dep` = 0.4, `J` = 100 and `init.1` varies among panels
 
 
 
@@ -66,4 +67,38 @@ for (i in 2:(num.sims-1)) {
   lines(1:num.years,freq.1.mat[i,], type="l", ylim=c(0,1))
 }
 
+```
+
+### Description of the code.  Explanations are provided here for parts of the code that have been modified from Box 4.1 (i.e., parts of the already explained in Box 4.1 are not repeated here)
+
+1. As in Box 4.1, we specify the number of years over which each simulation is run: `num.years`. Since this code runs multiple simulations (as shown in the book figures) we also specify `num.sims` as the number of simulations to run with a given set of parameters.  We also need a matrix `freq.1.mat` with dimensions `numsims` * `num.years` to hold output data, in stead of just a vector.
+
+```r
+num.sims <- 20 
+num.years <- 50
+freq.1.mat <- matrix(nrow = num.sims, ncol = num.years)
+```
+
+2. Set values of parameters that determine the strength and nature of selection (or lack thereof).  As explained in the book, `fit.ratio.avg` is the average ratio of species 1's fitness to species 2's fitness.  When both species' frequencies are 0.5, `fit.ratio` (defined inside the simulation loop) is equal to `fit.ratio.avg`.  `freq.dep` < 0 creates negative frequency-dependent selection, and vice versa for `freq.dep` > 0.  With `fit.ratio.avg` = 1 and `freq.dep` = 0, the model is completely neutral.
+
+```r
+  fit.ratio.avg <- 1
+  freq.dep <- 0
+```
+
+3. This is where selection can modify the probability that the individual chosen to reproduce is of one species or the other.  The fitness ratio at a given time step, `fit.ratio`, depends on the selection parameters `fit.ratio.avg` and `freq.dep` as well as the species' frequencies (represented by `freq.1`), if `freq.dep` ≠ 0.  The probability that the reproducing individual will be species 1, `Pr.1`, is then determined by `fit.ratio` and the two species' frequencies.  The form of these equations is explained in the book.
+
+```r
+    freq.1 <- sum(COM==1)/J; freq.2 <- 1 - freq.1
+    fit.ratio <- exp(freq.dep*(freq.1-0.5) + log(fit.ratio.avg))
+    Pr.1 <- fit.ratio*freq.1/(fit.ratio*freq.1 + freq.2)
+```
+
+4. Graphing the results is done much as in Box 4.1, but now using the `lines` function to add a separate line for each of the simulations.
+
+```r
+plot(1:num.years, freq.1.mat[1,], type="l", xlab="Time", 
+     ylab="Frequency of species 1", ylim=c(0,1))
+for (i in 2:(num.sims-1)) {
+  lines(1:num.years,freq.1.mat[i,], type="l", ylim=c(0,1))
 ```
