@@ -56,6 +56,8 @@ plot(1:num.years, freq.1.vec, type="l", xlab="Time",
 
 ```
 
+### Description of the code.
+
 1. This is the start of the first time loop, one loop for each year.  `freq.1` at the start of the year is used to calculate `fit.ratio` and `Pr.1`, which will remain constant for the whole year (a period of `J` deaths).
 
 ```r
