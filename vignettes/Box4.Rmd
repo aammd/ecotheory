@@ -1,6 +1,6 @@
 ---
-title: "Online Box 4"
-author: "Andrew MacDonald, after Vellend 201X"
+title: "R code accompanying Vellend (201X), 'The Theory of Ecological Communities' (Princeton University Press)"
+author: "Andrew MacDonald & Mark Vellend"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,11 +9,10 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code to produce Fig. 4.5 (delayed negative frequency-dependent selection)
+## Online Box 4: R code for simulating delayed negative frequency-dependent selection: Figure 4.5 in the book
 
-"delayed" means that fitness is fixed for an entire "year"
-this requires two time loops instead of one
-only one simulation is run here (i.e., there is no loop over num.sims)
+"Delayed" means that fitness is fixed for an entire "year", thus requiring two time loops instead of one.  Only one simulation is run here (i.e., there is no loop over num.sims)
+
 
 ```{r, fig.align='center'}
 
@@ -55,4 +54,22 @@ plot(1:num.years, freq.1.vec, type="l", xlab="Time",
      ylab="Frequency of species 1", ylim=c(0,1))
 
 
+```
+
+1. This is the start of the first time loop, one loop for each year.  `freq.1` at the start of the year is used to calculate `fit.ratio` and `Pr.1`, which will remain constant for the whole year (a period of `J` deaths).
+
+```r
+for (i in 1:(num.years-1)) {
+    
+  freq.1 <- sum(COM==1)/J; freq.2 <- 1 - freq.1
+  fit.ratio <- exp(freq.dep*(freq.1-0.5) + log(fit.ratio.avg))
+  Pr.1 <- fit.ratio*freq.1/(fit.ratio*freq.1 + freq.2)
+```
+
+2. This is the second time loop, one loop for each of `J` deaths.
+
+```r
+  for (k in 1:J) {
+    COM[ceiling(J*runif(1))] <- sample(c(1,2), 1, prob=c(Pr.1,1-Pr.1))
+  }
 ```
