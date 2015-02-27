@@ -1,6 +1,6 @@
 ---
-title: "Online Box 5"
-author: "Andrew MacDonald, after Vellend 201X"
+title: "R code accompanying Vellend (201X), 'The Theory of Ecological Communities' (Princeton University Press)"
+author: "Andrew MacDonald & Mark Vellend"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,13 +9,15 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code to produce Figures 4.7-4.9
+## Online Box 5: R code to simulate drift, selection, and dispersal of two species in any number of patches: Figures 4.7-4.9 in the book
 
-N-patch model with drift and selection
-Code runs just one simulation
-For Fig 4.7: J = 100, init.1 = 0.5*J, num.patch = 10, num.years = 50, fit.ratio.avg[] = 1, freq.dep[] = 0, m depends on panel
-For Fig 4.8: as in Fig. 4.7 except J = 1000, num.patch = 2, fit.ratio.avg[] <- c(1.2,(1/1.2))
-For Fig 4.9: as in Fig. 4.8 except num.years = 100, fit.ratio.avg[] <- c(1.5,(1/1.1))
+This code runs just one simulation
+
+**For Fig 4.7 (10-patch neutral model)**: `J` = 100, `init.1` = 0.5*`J`, `num.patch` = 10, `num.years` = 50, `fit.ratio.avg[]` = 1, `freq.dep[]` = 0, `m` varies among panels
+
+**For Fig 4.8 (spatially variable selection - symmetrical)**: as in Fig. 4.7 except `J` = 1000, `num.patch` = 2, `fit.ratio.avg[] <- c(1.2,(1/1.2))`
+
+**For Fig 4.9 (spatially variable selection - asymmetrical)**: as in Fig. 4.8 except `num.years` = 100, `fit.ratio.avg[] <- c(1.5,(1/1.1))`
 
 
 ```{r, fig.align='center'}
@@ -74,4 +76,53 @@ for (i in 2:(num.patch)) {
 }
 
 
+```
+
+1. Unlike Boxes 1-4, we can now have more than two patches, with the number defined by `num.patch`.  `freq.1.mat` is a matrix for output, as before, but with columns that are patches rather than separate simulations.
+
+```r
+num.years <- 50 
+num.patch <- 10
+freq.1.mat <- matrix(nrow = num.years, ncol = num.patch)
+```
+
+2. `m` is the dispersal parameter (`m` for migration, borrowed from the population genetics tradition).  It defines the probability that the individual chosen for reproduction comes from the entire metacommunity rather than the local community.
+
+```r
+m <- 0
+```
+
+3. With multiple patches, each can have its own value of the selection parameters, such that `fit.ratio.avg` and `freq.dep` are now vectors with `num.patch` elements.  For example, `fit.ratio.avg[] <- 1` gives all patches the same average fitness ratio (in this case 1).  For two patches, `fit.ratio.avg[] <- c(1.2,(1/1.2))` assigns the average fitness ratios of 1.2 and 1/1.2 to the two patches.  For more patches, we add more values, separated by commas.
+
+```r
+fit.ratio.avg <- vector(length=num.patch)
+fit.ratio.avg[] <- 1
+freq.dep <- vector(length=num.patch)
+freq.dep[] <- 0
+```
+
+4. The metacommunity contains `J*num.patch` individuals, so each year must involve `J*num.patch` deaths.  To choose a random individual for death, we first choose a patch by sampling an integer between 1 and `num.patch` at random.
+
+```r
+for (i in 1:(J*num.patch*(num.years-1))) {
+  
+  ## choose a patch where a death even will occur
+  patch <- sample(1:num.patch,1)
+```
+
+5. Here is where dispersal happens.  With probability `m`, we will define `Pr.1` based only on the frequency of species 1 in the entire metacommunity, effectively making the reproducing individual a random selection from the metacommunity.  The `else` statement says that we will otherwise (i.e., with probability 1 - `m`) choose the reproducing individual from the local community as in previous Boxes.
+
+```r
+  if (runif(1) < m) {
+    Pr.1 <- sum(COM==1)/(J*num.patch)
+  } else { 
+```
+
+6. The graphs in Figures 4.7-4.9 have slightly different formatting.  After calling the `lines` function, `lty=2` makes all the lines (except the first) dashed, as in Figures 4.8 and 4.9.  For all the lines to be solid (as in Figure 4.7), we can set `lty=1` instead.
+
+```r
+plot(1:num.years, freq.1.mat[,1], type="l", xlab="Time", 
+     ylab="Frequency of species 1", ylim=c(0,1))
+for (i in 2:(num.patch)) {
+  lines(1:num.years,freq.1.mat[,i], type="l", lty=2, ylim=c(0,1))
 ```
