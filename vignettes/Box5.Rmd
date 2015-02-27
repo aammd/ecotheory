@@ -78,6 +78,8 @@ for (i in 2:(num.patch)) {
 
 ```
 
+### Description of the code.
+
 1. Unlike Boxes 1-4, we can now have more than two patches, with the number defined by `num.patch`.  `freq.1.mat` is a matrix for output, as before, but with columns that are patches rather than separate simulations.
 
 ```r
