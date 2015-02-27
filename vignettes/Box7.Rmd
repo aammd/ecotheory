@@ -1,6 +1,6 @@
 ---
-title: "Online Box 7"
-author: "Andrew MacDonald, after Vellend 201X"
+title: "R code accompanying Vellend (201X), 'The Theory of Ecological Communities' (Princeton University Press)"
+author: "Andrew MacDonald & Mark Vellend"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,22 +9,23 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code to produce Fig. 4.11
-Neutral model in 1 large community with speciation
-Code produces one scenario in Fig 4.11; need to alter nu to generate others
-Note 1: this code takes a while to run (~20 minutes or more)
-Note 2: More than half the code is post-simulation calculations in order to generate graphics
+## Online Box 7: R code to simulate a neutral model in one large community with speciation: Figure 4.11
 
+This code produces only one of the scenarios in Figure 4.11.  The parameter `nu` needs to be altered to generate the other scenarios.
+
+**WARNING 1**: this code takes a while to run (~20 minutes or more)
+
+**WARNING 2**: More than half the code is post-simulation calculations in order to generate graphics.  The end result (a relative abundance distribution) is needed for the code in Online Box 8
 
 
 ```{r, fig.align='center'}
 ## specify parameters, initial conditions, and output vector
-num.years <- 100
-J <- 100 
+num.years <- 10000
+J <- 10000 
 sp <- 1 # a counter to keep track of added species
 COM <- vector(length = J); COM[] <- sp 
 
-nu <- 1e-04 # speciation rate
+nu <- 5e-04 # speciation rate
 
 year <- 2 
 
@@ -44,7 +45,7 @@ for (i in 1:(J*(num.years))) {
     COM[dead.indiv] <- COM[ceiling(J*runif(1))]
   }
   
-  ## record data
+  ## record data every 100 years
   if (i %% (J*100) == 0) {
     COM.out[year,] <- COM
     year <- year+ 1   
@@ -54,7 +55,6 @@ for (i in 1:(J*(num.years))) {
 # Calculations to allow plotting relative abundance distributions
 
 ## First calculate the number of species (SR) at each time
-## we need this to avoid outputting zero abundances
 
 SR.out <- vector(length = dim(COM.out)[1])
 
@@ -80,11 +80,88 @@ abund.out <- abund.out/J
 final.rad <- sort(abund.out[(num.years/100+1),1:SR.out[(num.years/100+1)]],decreasing=TRUE)
 
 ## Write the final relative abundance distribution to a file for use in Online Box 8 (island biogeography model)
-## you will need to create/set the directory on your own
-## data for different speciation rates need to be saved separately and combined later to produce Fig. 4.11
-#write.csv(final.rad, file = "c:/temp/RAD1.csv")
+write.csv(final.rad, file = "c:/temp/RAD1.csv")
 
 ## graph the results
 plot(log(final.rad),type="l",
      xlab="Species rank order", ylab="log(Relative abundance)")
+```
+
+### Description of the code.
+
+1. `num.years`, `J`, and `COM` are defined as in previous Boxes.  `nu` is the speciation rate.  With probability `nu`, the dead individual will be replaced by a species new to the metacommunity.  Since we will have an undetermined number of species, `sp` will keep track of species identities.  The first species is species 1, and each new species will be numbered in sequence.
+
+```r
+num.years <- 100
+J <- 100 
+sp <- 1 # a counter to keep track of added species
+COM <- vector(length = J); COM[] <- sp 
+
+nu <- 1e-04 # speciation rate
+```
+
+2. With many different species, we can no longer just keep track of the frequency of species 1.  `ncol = J` because we will keep track of the identity of each individual in each year of recorded data.  In order to reduce the duration of the simulation, we will record data only every 100 years, which is why `nrow = (num.years/100+1)`
+
+```r
+COM.out <- matrix(nrow = (num.years/100+1), ncol = J); COM.out[1,] <- COM 
+```
+
+3. Since we don't have just one line in the simulation where `COM` can be updated, we select an individual to die before figuring out if it will be replaced by a speciation even or by a local reproducer.
+
+```r
+  dead.indiv <- ceiling(J*runif(1))
+```
+
+4. Here's where speciation happens.  If the new individual is produced by speciation (with probaiblity `nu`), we update the `sp` counter, keeping track of how many species have entered the community.
+
+```r
+  if (runif(1) < nu) {
+    COM[dead.indiv] <- sp+1
+    sp <- sp + 1
+  } else {
+```
+
+5. Stop and record data every 100 years (after `J*100` deaths) instead of every year (after `J` deaths) as in previous Boxes).
+
+```r
+  if (i %% (J*100) == 0) {
+    COM.out[year,] <- COM
+    year <- year+ 1   
+  } } 
+```
+
+6. We need to calculate the number of species present (Species Richness) at each time step (when data were recorded) in order to avoid outputting zero abundances later.  `dim(COM.OUT)[1]` returns the first dimension (number of rows) of `COM.OUT`, which is the number of time steps at which we recorded data.  The `hist` (histogram) function returns, in the `$counts` object, a vector of abundances of each species in the community, most of which will be zero (because most species entering via speciation go quickly extinct).  We specify `plot=FALSE` so that R doesn't produce a histogram graph each time.  `abund.vec` will contain only the non-zero elements, and `abund.vec>0` returns a vector with a '1' for each species with non-zero abundance, the sum of which is species richness.
+
+```r
+SR.out <- vector(length = dim(COM.out)[1])
+
+for (t in 1:dim(COM.out)[1]) {
+  COM.hist <- hist(COM.out[t,],c(1:max(COM.out[t,])),plot=FALSE)
+  abund.vec <- COM.hist$counts[COM.hist$counts>0]
+  SR.out[t] <- sum(abund.vec>0)
+}
+```
+
+7. Using the same functions as in point 6 above, we calculate a matrix of species relative abundances at teach time point.  This is done separately from (and after) the species richness calculations because we don't need an abundance matrix with any more columns than there were species present at at least one of the data collection time points.  Many species arise and disappear within a 100-year window of time.  Dividing abundances by `J` returns relative abundances that sum to one.
+
+```r
+abund.out <- matrix(nrow = (num.years/100+1), ncol = max(SR.out))
+abund.out[] <- 0
+
+for (t in 1:dim(COM.out)[1]) {
+  COM.hist <- hist(COM.out[t,],c(1:max(COM.out[t,])),plot=FALSE)
+  abund.vec <- COM.hist$counts[COM.hist$counts>0]
+  abund.out[t,1:SR.out[t]] <- abund.vec
+}
+
+abund.out <- abund.out/J
+```
+
+8. `final.rad` is the rank-order relative abundance vector at the final time step.  This needs to be saved if we want to use it as the metacommunity relative abundance distribution in Online Box 8.  Note that you will need to create/set the directory on your own (i.e., replaced `c:/temp/RAD1.csv` with whatever directory and filename  you want). 
+
+```r
+final.rad <- sort(abund.out[(num.years/100+1),1:SR.out[(num.years/100+1)]],decreasing=TRUE)
+
+## Write the final relative abundance distribution to a file for use in Online Box 8 (island biogeography model)
+write.csv(final.rad, file = "c:/temp/RAD1.csv")
 ```
