@@ -1,6 +1,6 @@
 ---
-title: "Online Box 6"
-author: "Andrew MacDonald, after Vellend 201X"
+title: "R code accompanying Vellend (201X), 'The Theory of Ecological Communities' (Princeton University Press)"
+author: "Andrew MacDonald & Mark Vellend"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,10 +9,11 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## R code to produce Figures 4.10
+## Online Box 6: R code to simulate a colonization-competition tradeoff model in 2 patches: Figure 4.10 in the book
 
-Colonization-competition tradeoff model in 2 patches
-init.1 & m can be set to reproduce each panel in Fig. 4.10
+`init.1` & `m` can be set to reproduce each panel in Figure 4.10
+
+**WARNING**: This code is slower to run than the code in Boxes 1-5 (~40 seconds)
 
 
 
@@ -70,4 +71,33 @@ for (i in 1:(J*num.patch*(num.years-1))) {
 plot(1:num.years, rowMeans(freq.1.mat), type="l", xlab="Time", 
      ylab="Frequency of species 1", ylim=c(0,1))
 
+```
+
+### Description of the code.
+
+1. As with other multi-patch models, we define `fit.ratio.avg` and `freq.dep` as vectors, with one value for each patch.  Differences in dispersal ability are represented by `fit.ratio.m`, which is used to calculate the probability that - in the event of dispersal - the reproducing individual is of one species or the other.  If `fit.ratio.m` > 1, species 1 is a better disperser and vice versa.
+
+```r
+m <- 0.05
+fit.ratio.avg <- vector(length=num.patch)
+fit.ratio.avg[] <- c(1.2,1.2)
+fit.ratio.m <- 1/5
+freq.dep <- vector(length=num.patch)
+freq.dep[] <- 0
+```
+
+2. With probability `m` the reproducing individual will be chosen from the entire metacommunity, but the choice is not random if `fit.ratio.m` ≠ 1.  `freq.1.meta` is the frequency of species 1 in the metacommunity, and then `fit.ratio.m` is used to calculate `Pr.1` in the exact same way as `fit.ratio` is used for selection occurring within a local community. 
+
+```r
+  if (runif(1) < m) {
+    freq.1.meta <- sum(COM==1)/(J*num.patch)
+    Pr.1 <- fit.ratio.m*freq.1.meta/(fit.ratio.m*freq.1.meta + (1-freq.1.meta))
+  } else { 
+```
+
+3. Unlike the case in Boxes 1-5, here we plot the average frequency across patches, instead of the frequency within one or each patch.  Mean frequency of species 1 is calculated by `rowMeans(freq.1.mat)`
+
+```r
+plot(1:num.years, rowMeans(freq.1.mat), type="l", xlab="Time", 
+     ylab="Frequency of species 1", ylim=c(0,1))
 ```
