@@ -31,11 +31,8 @@ for (j in 1:num.sims) {
   freq.1.mat[j,1] <- sum(COM==1)/J 
 
   # set fitness ratios in each sequence of 20 years
-  f20 <- vector(length = 20); f20[1:10] <- 1.1; f20[11:20] <- 1/1.1
-  fit.ratios <- f20
-  for (x in 1:(num.years/20)) {
-    fit.ratios <- c(fit.ratios,f20)
-  }
+  f20 <- c(rep(1.1,times=10),rep(1/1.1,times=10))
+  fit.ratios <- rep(f20,times=(1+num.years/20))
  
   ## run simulation
   for (i in 1:(J*(num.years-1))) {
@@ -64,14 +61,11 @@ for (i in 2:(num.sims-1)) {
 
 ### Description of the code.  This code contains only a minor modification to the code in Online Box 2.
 
-1. Instead of defining a single value of `fit.ratio.avg` (see Online Box 2), we define here a 20-year repeating sequence of average fitness ratios, `f20`.  For 10 years, the fitness ratio is 1.1, and then 1/1.1 for the next 10 years (these values can be changed).  The `for` loop creates a vector of fitness ratios, `fit.ratios`, with at least as many elements as there are years in a simulation. 
+1. Instead of defining a single value of `fit.ratio.avg` (see Online Box 2), we define here a 20-year repeating sequence of average fitness ratios, `f20`.  For 10 years, the fitness ratio is 1.1, and then 1/1.1 for the next 10 years (these values can be changed).  The `rep` command repeats a value or vector a specified number of `times` in a new vector. 
 
 ```r
-  f20 <- vector(length = 20); f20[1:10] <- 1.1; f20[11:20] <- 1/1.1
-  fit.ratios <- f20
-  for (x in 1:(num.years/20)) {
-    fit.ratios <- c(fit.ratios,f20)
-  }
+  f20 <- c(rep(1.1,times=10),rep(1/1.1,times=10))
+  fit.ratios <- rep(f20,times=(1+num.years/20))
 ```
 
 2. Here we refer to the `fit.ratios` vector to define the value of `fit.ratio` in this year of the simulation.  In the calculation of `Pr.1`, there is no term for `freq.dep` as this code includes no possible frequency dependence. 
