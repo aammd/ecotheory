@@ -61,7 +61,7 @@ J <- 50
 init.1 <- J / 2
 ```
 
-2. Create an empty vector of length `J` to represent the community, and call it `COM`.  Set the initial population sizes of species 1 and 2 by making elements 1 through `init.1` of `COM` equal to 1, and the rest equal to 2.
+2. Create an empty vector of length `J` to represent the community, and call it `COM` (first line).  Assign individuals 1 through init.1 in `COM` to be species 1 (second line) and the remaining individuals to be species 2 (third line).
 
 ```r
 COM <- vector(length = J)
