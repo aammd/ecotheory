@@ -21,7 +21,7 @@ This code produces only one of the scenarios in Figure 4.11.  The parameter `nu`
 ```{r, fig.align='center'}
 ## specify parameters, initial conditions, and output vector
 num.years <- 10000
-J <- 10000 
+J <- 10000
 sp <- 1 # a counter to keep track of added species
 COM <- vector(length = J); COM[] <- sp 
 
@@ -80,7 +80,7 @@ abund.out <- abund.out/J
 final.rad <- sort(abund.out[(num.years/100+1),1:SR.out[(num.years/100+1)]],decreasing=TRUE)
 
 ## Write the final relative abundance distribution to a file for use in Online Box 8 (island biogeography model)
-write.csv(final.rad, file = "c:/temp/RAD1.csv")
+write.csv(final.rad, file = "RAD1.csv")
 
 ## graph the results
 plot(log(final.rad),type="l",
@@ -157,11 +157,11 @@ for (t in 1:dim(COM.out)[1]) {
 abund.out <- abund.out/J
 ```
 
-8. `final.rad` is the rank-order relative abundance vector at the final time step.  This needs to be saved if we want to use it as the metacommunity relative abundance distribution in Online Box 8.  Note that you will need to create/set the directory on your own (i.e., replaced `c:/temp/RAD1.csv` with whatever directory and filename  you want). 
+8. `final.rad` is the rank-order relative abundance vector at the final time step.  This needs to be saved if we want to use it as the metacommunity relative abundance distribution in Online Box 8.  As written, the code will save the file `RAD1.cvs` in your working directory, but you can specify where to save the file if desired (e.g., replace `RAD1.csv` with `c:/temp/RAD1.csv`).  To find out what your working directory is, type `getwd()` in the R console; to change it use the `setwd` function. 
 
 ```r
 final.rad <- sort(abund.out[(num.years/100+1),1:SR.out[(num.years/100+1)]],decreasing=TRUE)
 
 ## Write the final relative abundance distribution to a file for use in Online Box 8 (island biogeography model)
-write.csv(final.rad, file = "c:/temp/RAD1.csv")
+write.csv(final.rad, file = "RAD1.csv")
 ```

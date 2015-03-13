@@ -17,7 +17,7 @@ This code produces only one of the curves in Figure 4.12.  The input csv file an
 ```{r, fig.align='center'}
 ## Import data on metacommunity relative abundance distribution
 ## produced by Online Box 7
-metacom.data <- read.csv("c:/temp/RAD1.csv", header = TRUE)
+metacom.data <- read.csv("RAD1.csv", header = TRUE)
 
 ## specify parameters, initial conditions, and output matrix
 num.years <- 1000
@@ -65,10 +65,10 @@ xlab="log(Local community size, J)", ylab="log(Number of species)", ylim=c(0,5))
 
 ### Description of the code.
 
-1. This is the metacommunity relative abundance distribution produced by Online Box 7.  You need to specify the directory and filename accordingly.  Immigrants into a local patch are drawn from this distribution.
+1. This is the metacommunity relative abundance distribution produced by Online Box 7.  Immigrants into a local patch are drawn from this distribution.  If you placed this file somewhere other than your working directory, you need to specify the directory and filename accordingly (e.g., `c:/temp/RAD1.csv`).
 
 ```r
-metacom.data <- read.csv("c:/temp/RAD1.csv", header = TRUE)
+metacom.data <- read.csv("RAD1.csv", header = TRUE)
 ```
 
 2. `J.min` and `num.J` determine the set of island (patch) sizes that will be simulated.  The smallest patch has `J.min` individuals, and the largest has `J.min**num.J` (`J.min` raised to the power `num.J`), in this case 2**12 = 4096.  The number of species in the metacommunity, `SR.meta`, helps with recording data later on.
