@@ -9,15 +9,15 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Online Box 5: R code to simulate drift, selection, and dispersal of two species in any number of patches: Figures 4.7-4.9 in the book
+## Online Box 5: R code to simulate drift, selection, and dispersal of two species in any number of patches: Figures 6.7-6.9 in the book
 
 This code runs just one simulation
 
-**For Fig 4.7 (10-patch neutral model)**: `J` = 100, `init.1` = 0.5*`J`, `num.patch` = 10, `num.years` = 50, `fit.ratio.avg[]` = 1, `freq.dep[]` = 0, `m` varies among panels
+**For Fig 6.7 (10-patch neutral model)**: `J` = 100, `init.1` = 0.5*`J`, `num.patch` = 10, `num.years` = 50, `fit.ratio.avg[]` = 1, `freq.dep[]` = 0, `m` varies among panels
 
-**For Fig 4.8 (spatially variable selection - symmetrical)**: as in Fig. 4.7 except `J` = 1000, `num.patch` = 2, `fit.ratio.avg[] <- c(1.2,(1/1.2))`
+**For Fig 6.8 (spatially variable selection - symmetrical)**: as in Fig. 6.7 except `J` = 1000, `num.patch` = 2, `fit.ratio.avg[] <- c(1.2,(1/1.2))`
 
-**For Fig 4.9 (spatially variable selection - asymmetrical)**: as in Fig. 4.8 except `num.years` = 100, `fit.ratio.avg[] <- c(1.5,(1/1.1))`
+**For Fig 6.9 (spatially variable selection - asymmetrical)**: as in Fig. 6.8 except `num.years` = 100, `fit.ratio.avg[] <- c(1.5,(1/1.1))`
 
 
 ```{r, fig.align='center'}
@@ -120,7 +120,7 @@ for (i in 1:(J*num.patch*(num.years-1))) {
   } else { 
 ```
 
-6. The graphs in Figures 4.7-4.9 have slightly different formatting.  After calling the `lines` function, `lty=2` makes all the lines (except the first) dashed, as in Figures 4.8 and 4.9.  For all the lines to be solid (as in Figure 4.7), we can set `lty=1` instead.
+6. The graphs in Figures 6.7-6.9 have slightly different formatting.  After calling the `lines` function, `lty=2` makes all the lines (except the first) dashed, as in Figures 6.8 and 6.9.  For all the lines to be solid (as in Figure 6.7), we can set `lty=1` instead.
 
 ```r
 plot(1:num.years, freq.1.mat[,1], type="l", xlab="Time", 

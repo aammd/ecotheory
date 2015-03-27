@@ -9,9 +9,9 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Online Box 8: R code to simulate the Theory of Island Biogeography: Figure 4.12 in the book
+## Online Box 8: R code to simulate the Theory of Island Biogeography: Figure 6.12 in the book
 
-This code produces only one of the curves in Figure 4.12.  The input csv file and the parameter `m` need to be altered in order to simulate the other scenarios.  The input data used for the graph produced here was generated using `nu <- 5e-04`, `J <- 10000` and `num.years <- 10000` in Online Box 8.
+This code produces only one of the curves in Figure 6.12.  The input csv file and the parameter `m` need to be altered in order to simulate the other scenarios.  The input data used for the graph produced here was generated using `nu <- 5e-04`, `J <- 10000` and `num.years <- 10000` in Online Box 7.
 
 
 ```{r, fig.align='center'}

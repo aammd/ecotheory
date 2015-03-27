@@ -9,7 +9,7 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Online Box 7: R code to simulate a neutral model in one large community with speciation: Figure 4.11
+## Online Box 7: R code to simulate a neutral model in one large community with speciation: Figure 6.11
 
 This code produces only one of the scenarios in Figure 4.11.  The parameter `nu` needs to be altered to generate the other scenarios.
 

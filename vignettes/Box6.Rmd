@@ -9,9 +9,9 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Online Box 6: R code to simulate a colonization-competition tradeoff model in 2 patches: Figure 4.10 in the book
+## Online Box 6: R code to simulate a colonization-competition tradeoff model in 2 patches: Figure 6.10 in the book
 
-`init.1` & `m` can be set to reproduce each panel in Figure 4.10
+`init.1` & `m` can be set to reproduce each panel in Figure 6.10
 
 **WARNING**: This code is slower to run than the code in Boxes 1-5 (~40 seconds)
 

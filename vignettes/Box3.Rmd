@@ -9,7 +9,7 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Online Box 3: R code to simulate temporally fluctuating selection: Figure 4.4
+## Online Box 3: R code to simulate temporally fluctuating selection: Figure 6.4
 
 ```{r, fig.align='center'}
 ## specify the number of simulations, the number of years, and a matrix for output

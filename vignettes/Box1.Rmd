@@ -11,7 +11,7 @@ vignette: >
 
 ## Online Box 1: R code for simulating neutral dynamics in a local, two species community.  
 
-**The code here is exactly as in Box 4.1 in the book, but with annotations presented in a slightly different format.**  
+**The code here is exactly as in Box 6.1 in the book, but with annotations presented in a slightly different format.**  
 
 This code runs just one simulation at a time.  Online Box 2 presents code for running multiple simulations of this neutral model, as well as models with selection.
 
@@ -83,9 +83,7 @@ freq.1.vec <- vector(length = num.years)
 freq.1.vec[1] <- init.1 / J
 ```
 
-5. Initiate the simulation. Since each year involves `J` birth-death events, we need to go through the loop
-(i.e., repeat the birth-death cycle) `J*num.years` times in order to simulate the specified number of years.
-The variable `i` keeps track of how many times we’ve gone through the loop: the first time through the
+5. Initiate the simulation. Since each year involves `J` birth-death events, we need to go through the loop (i.e., repeat the birth-death cycle) `J*num.years` times in order to simulate the specified number of years.  The variable `i` keeps track of how many times we’ve gone through the loop: the first time through the
 loop, `i = 1`; the second time, `i = 2`, and so on.
 
 ```r

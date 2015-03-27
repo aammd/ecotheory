@@ -9,7 +9,7 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-## Online Box 4: R code for simulating delayed negative frequency-dependent selection: Figure 4.5 in the book
+## Online Box 4: R code for simulating delayed negative frequency-dependent selection: Figure 6.5 in the book
 
 "Delayed" means that fitness is fixed for an entire "year", thus requiring two time loops instead of one.  Only one simulation is run here (i.e., there is no loop over num.sims)
 
